@@ -13,7 +13,8 @@ class CategoriaController extends Controller
     public function index()
     {
         //
-        $categorias = Categoria::latest()->get();
+        // $categorias = Categoria::latest()->get();
+        $categorias = Categoria::all();
         return view('categorias.index', compact('categorias'));
     }
 
