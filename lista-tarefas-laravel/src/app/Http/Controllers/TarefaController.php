@@ -21,7 +21,8 @@ class TarefaController extends Controller
      */
     public function create()
     {
-        return view('tarefas.create');
+        $categorias = \App\Models\Categoria::all();
+        return view('tarefas.create', compact('categorias'));
     }
 
     /**
@@ -33,6 +34,7 @@ class TarefaController extends Controller
             'titulo' => ['required', 'string', 'max:80'],
             'descricao' => ['nullable', 'string'],
             'status' => ['required', 'in:pendente,fazendo,finalizado'],
+            'categoria_id' => ['nullable', 'exists:categorias,id'],
         ]);
 
         Tarefa::create($dados);
@@ -53,7 +55,8 @@ class TarefaController extends Controller
      */
     public function edit(Tarefa $tarefa)
     {
-        return view('tarefas.edit', compact('tarefa'));
+        $categorias = \App\Models\Categoria::all();
+        return view('tarefas.edit', compact('tarefa', 'categorias'));
     }
 
     /**
@@ -65,6 +68,7 @@ class TarefaController extends Controller
             'titulo' => ['required', 'string', 'max:80'],
             'descricao' => ['nullable', 'string'],
             'status' => ['required', 'in:pendente,fazendo,finalizada'],
+            'categoria_id' => ['nullable', 'exists:categorias,id'],
         ]);
 
         $tarefa->update($dados);
